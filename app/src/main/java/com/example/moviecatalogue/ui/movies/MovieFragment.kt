@@ -17,7 +17,7 @@ import com.example.moviecatalogue.databinding.FragmentMovieBinding
 class MovieFragment : Fragment() {
 
     private lateinit var fragmentMovieBinding: FragmentMovieBinding
-    private val mainViewModel by viewModels<MovieViewModel>()
+    private val movieViewModel by viewModels<MovieViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,11 +31,11 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            mainViewModel.movies.observe(viewLifecycleOwner) {
+            movieViewModel.movies.observe(viewLifecycleOwner) {
                 showAllMovies(it.results)
             }
 
-            mainViewModel.isLoading.observe(viewLifecycleOwner) {
+            movieViewModel.isLoading.observe(viewLifecycleOwner) {
                 showLoading(it)
             }
 
