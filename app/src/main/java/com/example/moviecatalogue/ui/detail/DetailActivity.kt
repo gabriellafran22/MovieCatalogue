@@ -1,27 +1,20 @@
 package com.example.moviecatalogue.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.MovieEntity
-import com.example.moviecatalogue.data.TvEntity
 import com.example.moviecatalogue.data.source.remote.response.movie.MovieDetailResponse
 import com.example.moviecatalogue.data.source.remote.response.tv.TvDetailResponse
 import com.example.moviecatalogue.databinding.ActivityDetailBinding
-import com.example.moviecatalogue.ui.movies.MovieViewModel
 import com.example.moviecatalogue.utils.Constant
+import com.example.moviecatalogue.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var activityDetailBinding: ActivityDetailBinding
-
-    //    private val detailViewModel by viewModels<DetailViewModel>()
     private val constant = Constant()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,29 +22,23 @@ class DetailActivity : AppCompatActivity() {
         activityDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(activityDetailBinding.root)
 
-
-        val viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        )[DetailViewModel::class.java]
+        val factory = ViewModelFactory.getInstance()
+        val detailViewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         val type = intent.getStringExtra(EXTRA_TYPE)
         val id = intent.getIntExtra(EXTRA_ID, 0)
 
-        viewModel.isLoading.observe(this) {
-            showLoading(it)
-        }
-
+        activityDetailBinding.progressBar.visibility = View.VISIBLE
         if (type == TYPE_MOVIE) {
             supportActionBar?.title = getString(R.string.menu_movies)
-            viewModel.getMovieDetailDataFromAPI(id)
-            viewModel.movieDetail.observe(this) {
+            detailViewModel.getMovieDetailDataFromAPI(id).observe(this) {
+                activityDetailBinding.progressBar.visibility = View.GONE
                 fillDetailMovie(it)
             }
         } else {
             supportActionBar?.title = getString(R.string.menu_tv_shows)
-            viewModel.getTvDetailDataFromAPI(id)
-            viewModel.tvDetail.observe(this) {
+            detailViewModel.getTvDetailDataFromAPI(id).observe(this) {
+                activityDetailBinding.progressBar.visibility = View.GONE
                 fillDetailTv(it)
             }
         }
@@ -95,7 +82,7 @@ class DetailActivity : AppCompatActivity() {
         val episodeRuntime = tv?.episodeRunTime
         if (episodeRuntime?.size == 1) {
             runtime = resources.getString(R.string.runtime, episodeRuntime[0])
-        }  else {
+        } else {
             counter = 0
             episodeRuntime?.forEach {
                 counter++
@@ -117,27 +104,6 @@ class DetailActivity : AppCompatActivity() {
             textRuntimeDetail.text = runtime
         }
     }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            activityDetailBinding.progressBar.visibility = View.VISIBLE
-        } else {
-            activityDetailBinding.progressBar.visibility = View.GONE
-        }
-    }
-
-
-//    private fun fillDetailTv(tv: TvEntity?) {
-//        with(activityDetailBinding) {
-//            textTitleDetail.text = tv?.tvTitle
-//            textDateDetail.text = tv?.tvReleaseDate
-//            textOverviewDetail.text = tv?.tvOverview
-//            Glide.with(this@DetailActivity)
-//                .load(tv?.tvPoster)
-//                .into(imgPosterDetail)
-//        }
-//    }
-
 
     companion object {
         const val EXTRA_ID = "extra_id"

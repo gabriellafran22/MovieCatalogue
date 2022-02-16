@@ -4,18 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.data.source.remote.response.tv.TvResultsItem
 import com.example.moviecatalogue.databinding.FragmentTvBinding
+import com.example.moviecatalogue.viewmodel.ViewModelFactory
 
 class TvFragment : Fragment() {
 
     private lateinit var fragmentTvBinding: FragmentTvBinding
-    private val tvViewModel by viewModels<TvViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,24 +27,13 @@ class TvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            tvViewModel.tvs.observe(viewLifecycleOwner) {
+            val factory = ViewModelFactory.getInstance()
+            val tvViewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
+            fragmentTvBinding.progressBar.visibility = View.VISIBLE
+            tvViewModel.getAllTvs().observe(viewLifecycleOwner) {
+                fragmentTvBinding.progressBar.visibility = View.GONE
                 showAllTvs(it.results)
             }
-
-            tvViewModel.isLoading.observe(viewLifecycleOwner) {
-                showLoading(it)
-            }
-//            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[TvViewModel::class.java]
-//            val tvShows = viewModel.getTvShows()
-//
-//            val tvAdapter = TvAdapter()
-//            tvAdapter.setTvs(tvShows)
-//
-//            with(fragmentTvBinding.rvTvShows) {
-//                layoutManager = LinearLayoutManager(context)
-//                setHasFixedSize(true)
-//                adapter = tvAdapter
-//            }
         }
     }
 
@@ -67,13 +54,5 @@ class TvFragment : Fragment() {
             adapter = tvAdapter
         }
 
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            fragmentTvBinding.progressBar.visibility = View.VISIBLE
-        } else {
-            fragmentTvBinding.progressBar.visibility = View.GONE
-        }
     }
 }

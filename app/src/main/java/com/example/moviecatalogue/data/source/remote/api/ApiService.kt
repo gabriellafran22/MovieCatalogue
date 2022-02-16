@@ -1,4 +1,4 @@
-package com.example.moviecatalogue.data.source.remote
+package com.example.moviecatalogue.data.source.remote.api
 
 import com.example.moviecatalogue.BuildConfig.API_KEY
 import com.example.moviecatalogue.data.source.remote.response.movie.MovieDetailResponse
