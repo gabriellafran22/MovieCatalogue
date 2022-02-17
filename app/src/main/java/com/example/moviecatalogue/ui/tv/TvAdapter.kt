@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecatalogue.data.TvEntity
 import com.example.moviecatalogue.data.source.remote.response.tv.TvResultsItem
 import com.example.moviecatalogue.databinding.ItemsMovieAndTvBinding
 import com.example.moviecatalogue.ui.detail.DetailActivity
@@ -37,7 +36,7 @@ class TvAdapter : RecyclerView.Adapter<TvAdapter.TvViewHolder>() {
 
     class TvViewHolder(private val binding: ItemsMovieAndTvBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val constant = Constant()
+        private val constant = Constant()
         fun bind(tv: TvResultsItem?) {
             with(binding) {
                 Glide.with(itemView.context)

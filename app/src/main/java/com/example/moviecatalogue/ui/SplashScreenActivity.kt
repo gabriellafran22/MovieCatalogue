@@ -1,10 +1,9 @@
 package com.example.moviecatalogue.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewPropertyAnimator
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.example.moviecatalogue.MainActivity
 import com.example.moviecatalogue.databinding.ActivitySplashScreenBinding
 

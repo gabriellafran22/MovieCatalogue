@@ -16,7 +16,7 @@ import retrofit2.Response
 class RemoteDataSource private constructor() {
     companion object {
 
-        private val TAG = "RemoteDataSource"
+        private const val TAG = "RemoteDataSource"
 
         @Volatile
         private var instance: RemoteDataSource? = null
