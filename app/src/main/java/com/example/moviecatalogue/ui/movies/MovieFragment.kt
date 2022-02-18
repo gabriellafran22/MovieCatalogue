@@ -13,14 +13,15 @@ import com.example.moviecatalogue.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment() {
 
-    private lateinit var fragmentMovieBinding: FragmentMovieBinding
+    private var _fragmentMovieBinding: FragmentMovieBinding? = null
+    private val fragmentMovieBinding get() = _fragmentMovieBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentMovieBinding = FragmentMovieBinding.inflate(layoutInflater, container, false)
+        _fragmentMovieBinding = FragmentMovieBinding.inflate(layoutInflater, container, false)
         return fragmentMovieBinding.root
     }
 

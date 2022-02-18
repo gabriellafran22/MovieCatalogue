@@ -9,16 +9,6 @@ import com.example.moviecatalogue.data.source.remote.response.tv.TvResponse
 class MovieCatalogueRepository private constructor(private val remoteDataSource: RemoteDataSource) :
     MovieCatalogueDataSource {
 
-    companion object {
-        @Volatile
-        private var instance: MovieCatalogueRepository? = null
-        fun getInstance(remoteData: RemoteDataSource): MovieCatalogueRepository =
-            instance ?: synchronized(this) {
-                instance ?: MovieCatalogueRepository(remoteData)
-            }
-    }
-
-
     override fun getAllMovies(): LiveData<MovieResponse> {
         return remoteDataSource.getAllMovies()
     }
@@ -33,5 +23,14 @@ class MovieCatalogueRepository private constructor(private val remoteDataSource:
 
     override fun getTvDetailDataFromAPI(id: Int): LiveData<TvDetailResponse> {
         return remoteDataSource.getTvDetailDataFromAPI(id)
+    }
+
+    companion object {
+        @Volatile
+        private var instance: MovieCatalogueRepository? = null
+        fun getInstance(remoteData: RemoteDataSource): MovieCatalogueRepository =
+            instance ?: synchronized(this) {
+                instance ?: MovieCatalogueRepository(remoteData)
+            }
     }
 }

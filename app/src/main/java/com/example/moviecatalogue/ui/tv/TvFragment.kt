@@ -8,19 +8,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.data.source.remote.response.tv.TvResultsItem
+import com.example.moviecatalogue.databinding.FragmentMovieBinding
 import com.example.moviecatalogue.databinding.FragmentTvBinding
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
 
 class TvFragment : Fragment() {
 
-    private lateinit var fragmentTvBinding: FragmentTvBinding
+    private var _fragmentTvBinding: FragmentTvBinding? = null
+    private val fragmentTvBinding get() = _fragmentTvBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentTvBinding = FragmentTvBinding.inflate(layoutInflater, container, false)
+        _fragmentTvBinding = FragmentTvBinding.inflate(layoutInflater, container, false)
         return fragmentTvBinding.root
     }
 

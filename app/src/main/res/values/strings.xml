@@ -1,11 +1,8 @@
 <resources>
     <string name="app_name">Movie Catalogue</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Gabriella Franchesca</string>
     <string name="nav_header_subtitle">gabriellafranchesca22@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <string name="image_desc">Image Description</string>
 
@@ -19,5 +16,4 @@
     <string name="genre">Genre :</string>
     <string name="runtime_template">Runtime :</string>
     <string name="runtime">%d minutes</string>
-    <string name="vote">⭐</string>
 </resources>
