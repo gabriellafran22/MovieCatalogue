@@ -54,7 +54,7 @@ object DummyData {
 
 
     fun generateDummyMovieDetail(): MovieDetailResponse {
-        val genresItem = arrayListOf(GenresItem("genre1", 1))
+        val genresItem = arrayListOf(GenresItem("Action", 28), GenresItem("Adventure", 12), GenresItem("Science Fiction", 878))
         val productionCompaniesItem =
             arrayListOf(ProductionCompaniesItem("logoPath", "name", 1, "originCountry"))
         val spokenLanguagesItem = arrayListOf(SpokenLanguagesItem("name", "iso6391", "englishName"))
@@ -75,8 +75,8 @@ object DummyData {
             10000000,
             "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
             "Spider-Man: No Way Home",
-            102,
-            "posterPath",
+            148,
+            "/nogV4th2P5QWYvQIMiWHj4CFLU9.jpg",
             spokenLanguagesItem,
             productionCompaniesItem,
             "2021-12-15",

@@ -50,6 +50,12 @@ class TvFragmentTest{
                 ViewActions.click()
             )
         )
+
+        onView(ViewMatchers.withId(R.id.img_poster_detail)).check(
+            ViewAssertions.matches(
+                ViewMatchers.isDisplayed()
+            )
+        )
         onView(ViewMatchers.withId(R.id.text_title_detail))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         onView(ViewMatchers.withId(R.id.text_title_detail))
@@ -62,5 +68,25 @@ class TvFragmentTest{
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         onView(ViewMatchers.withId(R.id.text_overview_detail))
             .check(ViewAssertions.matches(ViewMatchers.withText(dummyTvDetail.overview)))
+        onView(ViewMatchers.withId(R.id.text_genre_detail)).check(
+            ViewAssertions.matches(
+                ViewMatchers.isDisplayed()
+            )
+        )
+        onView(ViewMatchers.withId(R.id.text_genre_detail)).check(
+            ViewAssertions.matches(
+                ViewMatchers.withText("Drama")
+            )
+        )
+        onView(ViewMatchers.withId(R.id.text_runtime_detail)).check(
+            ViewAssertions.matches(
+                ViewMatchers.isDisplayed()
+            )
+        )
+        onView(ViewMatchers.withId(R.id.text_runtime_detail)).check(
+            ViewAssertions.matches(
+                ViewMatchers.withText("60 minutes")
+            )
+        )
     }
 }

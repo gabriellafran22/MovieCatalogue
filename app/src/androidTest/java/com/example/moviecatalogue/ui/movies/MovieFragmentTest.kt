@@ -49,12 +49,18 @@ class MovieFragmentTest {
                 click()
             )
         )
+
+        onView(withId(R.id.img_poster_detail)).check(matches(isDisplayed()))
         onView(withId(R.id.text_title_detail)).check(matches(isDisplayed()))
         onView(withId(R.id.text_title_detail)).check(matches(withText(dummyMovieDetail.originalTitle)))
         onView(withId(R.id.text_date_detail)).check(matches(isDisplayed()))
         onView(withId(R.id.text_date_detail)).check(matches(withText(dummyMovieDetail.releaseDate)))
         onView(withId(R.id.text_overview_detail)).check(matches(isDisplayed()))
         onView(withId(R.id.text_overview_detail)).check(matches(withText(dummyMovieDetail.overview)))
+        onView(withId(R.id.text_genre_detail)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_genre_detail)).check(matches(withText("Action, Adventure, Science Fiction")))
+        onView(withId(R.id.text_runtime_detail)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_runtime_detail)).check(matches(withText("${dummyMovieDetail.runtime} minutes")))
     }
 
 }

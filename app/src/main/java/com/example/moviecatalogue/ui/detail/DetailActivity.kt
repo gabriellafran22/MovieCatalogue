@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.moviecatalogue.R
+import com.example.moviecatalogue.data.source.remote.response.movie.GenresItem
 import com.example.moviecatalogue.data.source.remote.response.movie.MovieDetailResponse
 import com.example.moviecatalogue.data.source.remote.response.tv.TvDetailResponse
+import com.example.moviecatalogue.data.source.remote.response.tv.TvGenresItem
 import com.example.moviecatalogue.databinding.ActivityDetailBinding
 import com.example.moviecatalogue.utils.Constant
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
@@ -46,15 +48,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun fillDetailMovie(movie: MovieDetailResponse?) {
-        var genre = ""
-        var counter = 0
-        movie?.genres?.forEach {
-            genre += it?.name.toString()
-            counter++
-            if (counter != movie.genres.size) {
-                genre += ", "
-            }
-        }
         with(activityDetailBinding) {
             textTitleDetail.text = movie?.originalTitle
             textDateDetail.text = movie?.releaseDate
@@ -62,24 +55,57 @@ class DetailActivity : AppCompatActivity() {
             Glide.with(this@DetailActivity)
                 .load(constant.imageUrl + movie?.posterPath)
                 .into(imgPosterDetail)
-            textGenreDetail.text = genre
+            textGenreDetail.text = movieGenreToString(movie?.genres)
             textRuntimeDetail.text = resources.getString(R.string.runtime, movie?.runtime)
         }
     }
 
-    private fun fillDetailTv(tv: TvDetailResponse?) {
+    private fun movieGenreToString(genresItem: List<GenresItem?>?): String{
         var genre = ""
         var counter = 0
-        tv?.genres?.forEach {
+
+        genresItem?.forEach {
             genre += it?.name.toString()
             counter++
-            if (counter != tv.genres.size) {
+            if (counter != genresItem.size) {
                 genre += ", "
             }
         }
+        return genre
+    }
 
+    private fun fillDetailTv(tv: TvDetailResponse?) {
+
+        with(activityDetailBinding) {
+            textTitleDetail.text = tv?.name
+            textDateDetail.text = tv?.firstAirDate
+            textOverviewDetail.text = tv?.overview
+            Glide.with(this@DetailActivity)
+                .load(constant.imageUrl + tv?.posterPath)
+                .into(imgPosterDetail)
+            textGenreDetail.text = tvGenreToString(tv?.genres)
+            textRuntimeDetail.text = tvRuntimeToString(tv?.episodeRunTime)
+        }
+    }
+
+    private fun tvGenreToString(genresItem: List<TvGenresItem?>?): String{
+        var genre = ""
+        var counter = 0
+
+        genresItem?.forEach {
+            genre += it?.name.toString()
+            counter++
+            if (counter != genresItem.size) {
+                genre += ", "
+            }
+        }
+        return genre
+    }
+
+    private fun tvRuntimeToString(episodeRuntime: List<Int?>?): String{
+        var counter = 0
         var runtime = ""
-        val episodeRuntime = tv?.episodeRunTime
+
         if (episodeRuntime?.size == 1) {
             runtime = resources.getString(R.string.runtime, episodeRuntime[0])
         } else {
@@ -93,16 +119,7 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        with(activityDetailBinding) {
-            textTitleDetail.text = tv?.name
-            textDateDetail.text = tv?.firstAirDate
-            textOverviewDetail.text = tv?.overview
-            Glide.with(this@DetailActivity)
-                .load(constant.imageUrl + tv?.posterPath)
-                .into(imgPosterDetail)
-            textGenreDetail.text = genre
-            textRuntimeDetail.text = runtime
-        }
+        return runtime
     }
 
     companion object {
