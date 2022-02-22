@@ -22,7 +22,7 @@ interface MovieCatalogueDao {
     fun insertMovies(movieEntity: List<MovieEntity>)
 
     @Query("SELECT * FROM movie_entities WHERE isFavorite = 1")
-    fun getFavoriteMovies(): List<MovieEntity>
+    fun getFavoriteMovies(): LiveData<List<MovieEntity>>
 
     // tvs
     @Query("SELECT * FROM tv_entities")
@@ -38,8 +38,6 @@ interface MovieCatalogueDao {
     fun insertTvs(tvEntity: List<TvEntity>)
 
     @Query("SELECT * FROM tv_entities WHERE isFavorite = 1")
-    fun getFavoriteTvs(): List<TvEntity>
-
-
+    fun getFavoriteTvs(): LiveData<List<TvEntity>>
 
 }

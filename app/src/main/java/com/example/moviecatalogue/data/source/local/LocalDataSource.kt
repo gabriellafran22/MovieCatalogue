@@ -19,7 +19,7 @@ class LocalDataSource private constructor(private val mMovieCatalogueDao: MovieC
 
     fun insertMovies(movies: List<MovieEntity>) = mMovieCatalogueDao.insertMovies(movies)
 
-    fun getFavoriteMovies(): List<MovieEntity> = mMovieCatalogueDao.getFavoriteMovies()
+    fun getFavoriteMovies(): LiveData<List<MovieEntity>> = mMovieCatalogueDao.getFavoriteMovies()
 
     // tvs
     fun getAllTvs(): LiveData<List<TvEntity>> = mMovieCatalogueDao.getAllTvs()
@@ -32,6 +32,9 @@ class LocalDataSource private constructor(private val mMovieCatalogueDao: MovieC
         tv.isFavorite = isFav
         mMovieCatalogueDao.updateTv(tv)
     }
+
+    fun getFavoriteTvs(): LiveData<List<TvEntity>> = mMovieCatalogueDao.getFavoriteTvs()
+
 
     companion object {
         private var INSTANCE: LocalDataSource? = null

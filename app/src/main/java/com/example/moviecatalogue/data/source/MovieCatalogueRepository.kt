@@ -174,6 +174,14 @@ class MovieCatalogueRepository private constructor(
         }
     }
 
+    override fun getFavoriteMovies(): LiveData<List<MovieEntity>> {
+        return localDataSource.getFavoriteMovies()
+    }
+
+    override fun getFavoriteTvs(): LiveData<List<TvEntity>> {
+        return localDataSource.getFavoriteTvs()
+    }
+
     companion object {
         @Volatile
         private var instance: MovieCatalogueRepository? = null
