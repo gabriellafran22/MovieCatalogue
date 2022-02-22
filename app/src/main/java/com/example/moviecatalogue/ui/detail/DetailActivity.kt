@@ -11,8 +11,10 @@ import com.example.moviecatalogue.data.source.local.entity.MovieEntity
 import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.ActivityDetailBinding
 import com.example.moviecatalogue.utils.Constant
+import com.example.moviecatalogue.utils.showSnackBar
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
 import com.example.moviecatalogue.vo.Status
+import com.google.android.material.snackbar.Snackbar
 
 class DetailActivity : AppCompatActivity() {
 
@@ -80,6 +82,7 @@ class DetailActivity : AppCompatActivity() {
                 } else {
                     detailViewModel.setFavoriteTv(tv, false)
                 }
+                showSnackBar(it, getString(R.string.remove_favorite))
             } else {
                 setFavoriteButton(true)
                 if(type == TYPE_MOVIE){
@@ -87,7 +90,9 @@ class DetailActivity : AppCompatActivity() {
                 } else {
                     detailViewModel.setFavoriteTv(tv, true)
                 }
+                showSnackBar(it, getString(R.string.add_favorite))
             }
+
         }
 
     }

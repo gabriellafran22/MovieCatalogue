@@ -4,16 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.moviecatalogue.ui.favorite.fragment.FavoriteMovieFragment
+import com.example.moviecatalogue.ui.favorite.fragment.FavoriteTvFragment
 
 class SectionPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 
     private var favoriteMovieFragment: FavoriteMovieFragment? = null
-    private var favoriteTvFragment: FavoriteMovieFragment? = null
+    private var favoriteTvFragment: FavoriteTvFragment? = null
 
 
     override fun getItemCount(): Int = 2
 
-    fun setFragment(favoriteMovieFragment: FavoriteMovieFragment, favoriteTvFragment: FavoriteMovieFragment) {
+    fun setFragment(favoriteMovieFragment: FavoriteMovieFragment, favoriteTvFragment: FavoriteTvFragment) {
         this.favoriteMovieFragment = favoriteMovieFragment
         this.favoriteTvFragment = favoriteTvFragment
     }

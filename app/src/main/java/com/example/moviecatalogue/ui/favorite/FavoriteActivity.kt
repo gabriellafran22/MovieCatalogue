@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.ActivityFavoriteBinding
 import com.example.moviecatalogue.ui.favorite.fragment.FavoriteMovieFragment
+import com.example.moviecatalogue.ui.favorite.fragment.FavoriteTvFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -14,12 +15,14 @@ class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var activityFavoriteBinding: ActivityFavoriteBinding
     private val favoriteMovieFragment = FavoriteMovieFragment()
-    private val favoriteTvFragment = FavoriteMovieFragment()
+    private val favoriteTvFragment = FavoriteTvFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityFavoriteBinding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(activityFavoriteBinding.root)
+
+        supportActionBar?.title = resources.getString(R.string.menu_favorite)
 
         setTabLayout()
     }

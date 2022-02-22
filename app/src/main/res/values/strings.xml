@@ -21,6 +21,7 @@
     <string name="title_activity_favorite">FavoriteActivity</string>
 
     <string name="no_favorite">No Favorite %s Added</string>
-
+    <string name="remove_favorite">Successfully removed from favorites</string>
+    <string name="add_favorite">Successfully added to favorites</string>
 
 </resources>

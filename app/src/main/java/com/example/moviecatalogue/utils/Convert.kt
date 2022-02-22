@@ -1,7 +1,9 @@
 package com.example.moviecatalogue.utils
 
+import android.view.View
 import com.example.moviecatalogue.data.source.remote.response.movie.GenresItem
 import com.example.moviecatalogue.data.source.remote.response.tv.TvGenresItem
+import com.google.android.material.snackbar.Snackbar
 
 fun movieGenreToString(genresItem: List<GenresItem?>?): String{
     var genre = ""
@@ -50,3 +52,6 @@ fun tvRuntimeToString(episodeRuntime: List<Int?>?): String{
     return runtime
 }
 
+fun showSnackBar(view: View, string: String){
+    Snackbar.make(view, string, Snackbar.LENGTH_SHORT).show()
+}
