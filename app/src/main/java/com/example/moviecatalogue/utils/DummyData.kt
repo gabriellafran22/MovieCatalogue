@@ -55,10 +55,6 @@ object DummyData {
 
     fun generateDummyMovieDetail(): MovieDetailResponse {
         val genresItem = arrayListOf(GenresItem("Action", 28), GenresItem("Adventure", 12), GenresItem("Science Fiction", 878))
-        val productionCompaniesItem =
-            arrayListOf(ProductionCompaniesItem("logoPath", "name", 1, "originCountry"))
-        val spokenLanguagesItem = arrayListOf(SpokenLanguagesItem("name", "iso6391", "englishName"))
-        val productionCountriesItem = arrayListOf(ProductionCountriesItem("iso31661", "name"))
 
         return MovieDetailResponse(
             "originalLanguage",
@@ -69,7 +65,6 @@ object DummyData {
             1000,
             genresItem,
             10.0,
-            productionCountriesItem,
             1,
             12345,
             10000000,
@@ -77,11 +72,8 @@ object DummyData {
             "Spider-Man: No Way Home",
             148,
             "/nogV4th2P5QWYvQIMiWHj4CFLU9.jpg",
-            spokenLanguagesItem,
-            productionCompaniesItem,
             "2021-12-15",
             10.0,
-            "belongsToCollection",
             "tagline",
             false,
             "homepage",
@@ -91,72 +83,31 @@ object DummyData {
 
     fun generateDummyTvDetail(): TvDetailResponse {
         val genresItem = arrayListOf(TvGenresItem("genre1", 1))
-        val tvProductionCompaniesItem =
-            arrayListOf(TvProductionCompaniesItem("logoPath", "name", 1, "originCountry"))
-        val spokenLanguagesItem =
-            arrayListOf(TvSpokenLanguagesItem("name", "iso6391", "englishName"))
-        val tvProductionCountriesItem = arrayListOf(TvProductionCountriesItem("iso31661", "name"))
-        val tvNetworksItem = arrayListOf(TvNetworksItem("logoPath", "name", 1, "originCountry"))
         val languages = arrayListOf("US")
-        val seasons =
-            arrayListOf(TvSeasonsItem("airDate", "overview", 1, "name", 1, 1, "posterPath"))
-        val tvCreatedByItem = arrayListOf(TvCreatedByItem(1, "creditId", "name", "profilePath", 1))
-        val tvLastEpisodeToAir = TvLastEpisodeToAir(
-            "productionCode",
-            "airDate",
-            "overview",
-            10,
-            2.1,
-            "name",
-            2,
-            1,
-            "stillPath",
-            20
-        )
         val originCountry = arrayListOf("US", "ID")
         val episodeRuntime = arrayListOf(1, 2, 3)
-        val tvNextEpisodeToAir = TvNextEpisodeToAir(
-            "productionCode",
-            "airDate",
-            "overview",
-            10,
-            2.1,
-            "name",
-            2,
-            1,
-            "stillPath",
-            20
-        )
 
         return TvDetailResponse(
             "originalLanguage",
             10,
-            tvNetworksItem,
             "type",
             "backdropPath",
             genresItem,
             10.0,
-            tvProductionCountriesItem,
             2,
             12,
             1,
             "2019-06-16",
             "A group of high school students navigate love and friendships in a world of drugs, sex, trauma, and social media.",
-            seasons,
             languages,
-            tvCreatedByItem,
-            tvLastEpisodeToAir,
             "posterPath",
             originCountry,
-            spokenLanguagesItem,
-            tvProductionCompaniesItem,
             "originalName",
             10.0,
             "Euphoria",
             "tagline",
             episodeRuntime,
             false,
-            tvNextEpisodeToAir,
             false,
             "lastAirDate",
             "homepage",

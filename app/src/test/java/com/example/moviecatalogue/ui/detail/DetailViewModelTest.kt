@@ -91,7 +91,5 @@ class DetailViewModelTest {
         assertEquals(dummyTvDetail.voteCount, tvEntity?.voteCount)
         assertEquals(dummyTvDetail.episodeRunTime, tvEntity?.episodeRunTime)
         assertEquals(dummyTvDetail.homepage, tvEntity?.homepage)
-        assertEquals(dummyTvDetail.nextEpisodeToAir, tvEntity?.nextEpisodeToAir)
-        assertEquals(dummyTvDetail.createdBy, tvEntity?.createdBy)
     }
 }

@@ -28,9 +28,6 @@ data class MovieDetailResponse(
 	@field:SerializedName("popularity")
 	val popularity: Double? = null,
 
-	@field:SerializedName("production_countries")
-	val productionCountries: List<ProductionCountriesItem?>? = null,
-
 	@field:SerializedName("id")
 	val id: Int? = null,
 
@@ -52,20 +49,11 @@ data class MovieDetailResponse(
 	@field:SerializedName("poster_path")
 	val posterPath: String? = null,
 
-	@field:SerializedName("spoken_languages")
-	val spokenLanguages: List<SpokenLanguagesItem?>? = null,
-
-	@field:SerializedName("production_companies")
-	val productionCompanies: List<ProductionCompaniesItem?>? = null,
-
 	@field:SerializedName("release_date")
 	val releaseDate: String? = null,
 
 	@field:SerializedName("vote_average")
 	val voteAverage: Double? = null,
-
-	@field:SerializedName("belongs_to_collection")
-	val belongsToCollection: Any? = null,
 
 	@field:SerializedName("tagline")
 	val tagline: String? = null,
@@ -80,15 +68,6 @@ data class MovieDetailResponse(
 	val status: String? = null
 )
 
-data class ProductionCountriesItem(
-
-	@field:SerializedName("iso_3166_1")
-	val iso31661: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null
-)
-
 data class GenresItem(
 
 	@field:SerializedName("name")
@@ -96,31 +75,4 @@ data class GenresItem(
 
 	@field:SerializedName("id")
 	val id: Int? = null
-)
-
-data class SpokenLanguagesItem(
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("iso_639_1")
-	val iso6391: String? = null,
-
-	@field:SerializedName("english_name")
-	val englishName: String? = null
-)
-
-data class ProductionCompaniesItem(
-
-	@field:SerializedName("logo_path")
-	val logoPath: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("origin_country")
-	val originCountry: String? = null
 )
