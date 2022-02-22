@@ -11,16 +11,16 @@ import com.example.moviecatalogue.data.source.local.entity.MovieEntity
 import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.ActivityDetailBinding
 import com.example.moviecatalogue.utils.Constant
-import com.example.moviecatalogue.utils.movieGenreToString
-import com.example.moviecatalogue.utils.tvGenreToString
-import com.example.moviecatalogue.utils.tvRuntimeToString
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
 import com.example.moviecatalogue.vo.Status
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var activityDetailBinding: ActivityDetailBinding
+    private lateinit var movie: MovieEntity
+    private lateinit var tv: TvEntity
     private val constant = Constant()
+    private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +38,9 @@ class DetailActivity : AppCompatActivity() {
             supportActionBar?.title = getString(R.string.menu_movies)
             detailViewModel.getMovieDetailData(id).observe(this) {
                 if (it != null) {
-                    when(it.status){
-                        Status.LOADING -> activityDetailBinding.progressBar.visibility = View.VISIBLE
+                    when (it.status) {
+                        Status.LOADING -> activityDetailBinding.progressBar.visibility =
+                            View.VISIBLE
                         Status.SUCCESS -> {
                             activityDetailBinding.progressBar.visibility = View.GONE
                             fillDetailMovie(it.data!!)
@@ -55,8 +56,9 @@ class DetailActivity : AppCompatActivity() {
             supportActionBar?.title = getString(R.string.menu_tv_shows)
             detailViewModel.getTvDetailData(id).observe(this) {
                 if (it != null) {
-                    when(it.status){
-                        Status.LOADING -> activityDetailBinding.progressBar.visibility = View.VISIBLE
+                    when (it.status) {
+                        Status.LOADING -> activityDetailBinding.progressBar.visibility =
+                            View.VISIBLE
                         Status.SUCCESS -> {
                             activityDetailBinding.progressBar.visibility = View.GONE
                             fillDetailTv(it.data!!)
@@ -70,9 +72,28 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
+        activityDetailBinding.fabFavoriteDetail.setOnClickListener {
+            if (isFavorite){
+                setFavoriteButton(false)
+                if(type == TYPE_MOVIE){
+                    detailViewModel.setFavoriteMovie(movie, false)
+                } else {
+                    detailViewModel.setFavoriteTv(tv, false)
+                }
+            } else {
+                setFavoriteButton(true)
+                if(type == TYPE_MOVIE){
+                    detailViewModel.setFavoriteMovie(movie, true)
+                } else {
+                    detailViewModel.setFavoriteTv(tv, true)
+                }
+            }
+        }
+
     }
 
     private fun fillDetailMovie(movie: MovieEntity) {
+        this.movie = movie
         with(activityDetailBinding) {
             textTitleDetail.text = movie.originalTitle
             textDateDetail.text = movie.releaseDate
@@ -83,10 +104,11 @@ class DetailActivity : AppCompatActivity() {
             textGenreDetail.text = movie.genres
             textRuntimeDetail.text = resources.getString(R.string.runtime, movie.runtime)
         }
+        setFavoriteButton(movie.isFavorite)
     }
 
     private fun fillDetailTv(tv: TvEntity) {
-
+        this.tv = tv
         with(activityDetailBinding) {
             textTitleDetail.text = tv.name
             textDateDetail.text = tv.firstAirDate
@@ -96,6 +118,17 @@ class DetailActivity : AppCompatActivity() {
                 .into(imgPosterDetail)
             textGenreDetail.text = tv.genres
             textRuntimeDetail.text = resources.getString(R.string.runtime, tv.episodeRunTime)
+        }
+        setFavoriteButton(tv.isFavorite)
+
+    }
+
+    private fun setFavoriteButton(isFav: Boolean) {
+        isFavorite = isFav
+        if (isFav) {
+            activityDetailBinding.fabFavoriteDetail.setImageResource(R.drawable.ic_favorite)
+        } else {
+            activityDetailBinding.fabFavoriteDetail.setImageResource(R.drawable.ic_favorite_border)
         }
     }
 

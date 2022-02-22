@@ -9,14 +9,11 @@ import com.example.moviecatalogue.data.source.remote.response.tv.TvDetailRespons
 import com.example.moviecatalogue.data.source.remote.response.tv.TvResponse
 import com.example.moviecatalogue.vo.Resource
 
-//TODO: yg database blm di masukin
 interface MovieCatalogueDataSource {
-//    fun getAllMovies(): LiveData<Resource<MovieResponse>>
-//    fun getMovieDetailDataFromAPI(id: Int): LiveData<Resource<MovieDetailResponse>>
-//    fun getAllTvs(): LiveData<Resource<TvResponse>>
-//    fun getTvDetailDataFromAPI(id: Int): LiveData<Resource<TvDetailResponse>>
     fun getAllMovies(): LiveData<Resource<List<MovieEntity>>>
     fun getMovieDetail(id: Int): LiveData<Resource<MovieEntity>>
     fun getAllTvs(): LiveData<Resource<List<TvEntity>>>
     fun getTvDetailDataFromAPI(id: Int): LiveData<Resource<TvEntity>>
+    fun setFavoriteMovie(movieEntity: MovieEntity, isFav: Boolean)
+    fun setFavoriteTv(tvEntity: TvEntity, isFav: Boolean)
 }

@@ -162,6 +162,18 @@ class MovieCatalogueRepository private constructor(
         }.asLiveData()
     }
 
+    override fun setFavoriteMovie(movieEntity: MovieEntity, isFav: Boolean) {
+        return appExecutors.diskIO().execute {
+            localDataSource.updateMovie(movieEntity, isFav)
+        }
+    }
+
+    override fun setFavoriteTv(tvEntity: TvEntity, isFav: Boolean) {
+        return appExecutors.diskIO().execute {
+            localDataSource.updateTv(tvEntity, isFav)
+        }
+    }
+
     companion object {
         @Volatile
         private var instance: MovieCatalogueRepository? = null
