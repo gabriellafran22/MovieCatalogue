@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecatalogue.data.source.remote.response.movie.MovieResultsItem
+import com.example.moviecatalogue.data.source.local.entity.MovieEntity
 import com.example.moviecatalogue.databinding.ItemsMovieAndTvBinding
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import com.example.moviecatalogue.utils.Constant
@@ -13,9 +13,9 @@ import java.util.ArrayList
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var listMovies = ArrayList<MovieResultsItem?>()
+    private var listMovies = ArrayList<MovieEntity?>()
 
-    fun setMovies(movies: List<MovieResultsItem?>?) {
+    fun setMovies(movies: List<MovieEntity?>?) {
         if (movies == null) return
         this.listMovies.clear()
         this.listMovies.addAll(movies)
@@ -37,7 +37,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     class MovieViewHolder(private val binding: ItemsMovieAndTvBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val constant = Constant()
-        fun bind(movie: MovieResultsItem?) {
+        fun bind(movie: MovieEntity?) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(constant.imageUrl + movie?.posterPath)

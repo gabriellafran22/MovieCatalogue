@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+//    id 'kotlin-parcelize'
 }
 
 android {
@@ -56,8 +58,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
-    //espresso
+    // espresso
     implementation "androidx.test.espresso:espresso-idling-resource:3.4.0"
+    // room
+    implementation 'androidx.room:room-runtime:2.4.1'
+    kapt 'androidx.room:room-compiler:2.4.1'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

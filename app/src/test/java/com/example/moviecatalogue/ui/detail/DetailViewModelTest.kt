@@ -3,7 +3,7 @@ package com.example.moviecatalogue.ui.detail
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.moviecatalogue.data.source.remote.MovieCatalogueRepository
+import com.example.moviecatalogue.data.source.MovieCatalogueRepository
 import com.example.moviecatalogue.data.source.remote.response.movie.MovieDetailResponse
 import com.example.moviecatalogue.data.source.remote.response.tv.TvDetailResponse
 import com.example.moviecatalogue.utils.DummyData
@@ -50,14 +50,14 @@ class DetailViewModelTest {
         val movieDetail = MutableLiveData<MovieDetailResponse>()
         movieDetail.value = dummyMovieDetail2
 
-        Mockito.`when`(movieCatalogueRepository.getMovieDetailDataFromAPI(movieId))
+        Mockito.`when`(movieCatalogueRepository.getMovieDetail(movieId))
             .thenReturn(movieDetail)
 
-        val movieEntity = viewModel.getMovieDetailDataFromAPI(movieId).value
-        verify(movieCatalogueRepository).getMovieDetailDataFromAPI(movieId)
+        val movieEntity = viewModel.getMovieDetailData(movieId).value
+        verify(movieCatalogueRepository).getMovieDetail(movieId)
         assertNotNull(movieEntity)
 
-        viewModel.getMovieDetailDataFromAPI(movieId).observeForever(movieObserver)
+        viewModel.getMovieDetailData(movieId).observeForever(movieObserver)
         Mockito.verify(movieObserver).onChanged(dummyMovieDetail2)
 
         assertEquals(dummyMovieDetail.id, movieEntity?.id)
@@ -77,11 +77,11 @@ class DetailViewModelTest {
 
         Mockito.`when`(movieCatalogueRepository.getTvDetailDataFromAPI(tvId)).thenReturn(tvDetail)
 
-        val tvEntity = viewModel.getTvDetailDataFromAPI(tvId).value
+        val tvEntity = viewModel.getTvDetailData(tvId).value
         verify(movieCatalogueRepository).getTvDetailDataFromAPI(tvId)
         assertNotNull(tvEntity)
 
-        viewModel.getTvDetailDataFromAPI(tvId).observeForever(tvObserver)
+        viewModel.getTvDetailData(tvId).observeForever(tvObserver)
         Mockito.verify(tvObserver).onChanged(dummyTvDetail2)
 
         assertEquals(dummyTvDetail.id, tvEntity?.id)

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecatalogue.data.source.remote.response.tv.TvResultsItem
+import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.ItemsMovieAndTvBinding
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import com.example.moviecatalogue.utils.Constant
@@ -13,10 +13,10 @@ import java.util.ArrayList
 
 class TvAdapter : RecyclerView.Adapter<TvAdapter.TvViewHolder>() {
 
-    private var listTvs = ArrayList<TvResultsItem?>()
+    private var listTvs = ArrayList<TvEntity>()
 
-    fun setTvs(tvs: List<TvResultsItem?>?) {
-        if (tvs == null) return
+    fun setTvs(tvs: List<TvEntity>) {
+//        if (tvs == null) return
         this.listTvs.clear()
         this.listTvs.addAll(tvs)
     }
@@ -37,7 +37,7 @@ class TvAdapter : RecyclerView.Adapter<TvAdapter.TvViewHolder>() {
     class TvViewHolder(private val binding: ItemsMovieAndTvBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val constant = Constant()
-        fun bind(tv: TvResultsItem?) {
+        fun bind(tv: TvEntity?) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(constant.imageUrl + tv?.posterPath)
@@ -53,46 +53,4 @@ class TvAdapter : RecyclerView.Adapter<TvAdapter.TvViewHolder>() {
             }
         }
     }
-
-//    private var listTvs = ArrayList<TvEntity>()
-//
-//    fun setTvs(tvs: List<TvEntity>?) {
-//        if (tvs == null) return
-//        this.listTvs.clear()
-//        this.listTvs.addAll(tvs)
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvViewHolder {
-//        val itemsTvsBinding =
-//            ItemsMovieAndTvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        return TvViewHolder(itemsTvsBinding)
-//    }
-//
-//    override fun onBindViewHolder(holder: TvAdapter.TvViewHolder, position: Int) {
-//        val tvs = listTvs[position]
-//        holder.bind(tvs)
-//    }
-//
-//    override fun getItemCount(): Int = listTvs.size
-//
-//    class TvViewHolder(private val binding: ItemsTvAndTvBinding) :
-//        RecyclerView.ViewHolder(binding.root) {
-//        fun bind(tv: TvEntity) {
-//            with(binding) {
-//                Glide.with(itemView.context)
-//                    .load(tv.tvPoster)
-//                    .into(imgPoster)
-//                textItemTitle.text = tv.tvTitle
-//                textItemOverview.text = tv.tvOverview
-//                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailActivity::class.java)
-//                    intent.putExtra(DetailActivity.EXTRA_ID, tv.tvId)
-//                    intent.putExtra(DetailActivity.EXTRA_TYPE, DetailActivity.TYPE_TV)
-//                    it.context.startActivity(intent)
-//                }
-//            }
-//        }
-//    }
-
-
 }

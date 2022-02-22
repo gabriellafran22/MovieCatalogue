@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moviecatalogue.data.source.remote.response.tv.TvResultsItem
-import com.example.moviecatalogue.databinding.FragmentMovieBinding
+import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.FragmentTvBinding
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
+import com.example.moviecatalogue.vo.Status
 
 class TvFragment : Fragment() {
 
@@ -29,21 +30,32 @@ class TvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance()
+            val factory = ViewModelFactory.getInstance(requireActivity())
             val tvViewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
-            fragmentTvBinding.progressBar.visibility = View.VISIBLE
+
             tvViewModel.getAllTvs().observe(viewLifecycleOwner) {
-                fragmentTvBinding.progressBar.visibility = View.GONE
-                showAllTvs(it.results)
+                if (it != null) {
+                    when(it.status){
+                        Status.LOADING -> fragmentTvBinding.progressBar.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            fragmentTvBinding.progressBar.visibility = View.GONE
+                            showAllTvs(it.data!!)
+                        }
+                        Status.ERROR -> {
+                            fragmentTvBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
     }
 
-    private fun showAllTvs(tvResults: List<TvResultsItem?>?) {
-        val tvResultsFiltered: MutableList<TvResultsItem?> = mutableListOf()
+    private fun showAllTvs(tvResults: List<TvEntity>) {
+        val tvResultsFiltered: MutableList<TvEntity> = mutableListOf()
 
-        tvResults?.forEach {
-            if(!it?.posterPath.isNullOrBlank() && !it?.overview.isNullOrEmpty()){
+        tvResults.forEach {
+            if(it.posterPath.isNotEmpty() && it.overview.isNotEmpty()){
                 tvResultsFiltered.add(it)
             }
         }

@@ -27,15 +27,15 @@ class RemoteDataSource private constructor() {
             }
     }
 
-    fun getAllMovies(): LiveData<MovieResponse> {
+    fun getAllMovies(): LiveData<ApiResponse<MovieResponse>> {
         EspressoIdlingResource.increment()
-        val movies = MutableLiveData<MovieResponse>()
+        val movies = MutableLiveData<ApiResponse<MovieResponse>>()
         val client = ApiConfig.getApiService().getMovies()
         client.enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null) {
-                    movies.value = response.body()
+                    movies.value = ApiResponse.success(response.body()!!)
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -51,16 +51,16 @@ class RemoteDataSource private constructor() {
         return movies
     }
 
-
-    fun getAllTvs(): LiveData<TvResponse> {
+//TODO: ini yg bawah" belum di ganti semua pake API response
+    fun getAllTvs(): LiveData<ApiResponse<TvResponse>> {
         EspressoIdlingResource.increment()
-        val tvs = MutableLiveData<TvResponse>()
+        val tvs = MutableLiveData<ApiResponse<TvResponse>>()
         val client = ApiConfig.getApiService().getTvs()
         client.enqueue(object : Callback<TvResponse> {
             override fun onResponse(call: Call<TvResponse>, response: Response<TvResponse>) {
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null) {
-                    tvs.value = response.body()
+                    tvs.value = ApiResponse.success(response.body()!!)
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -77,9 +77,9 @@ class RemoteDataSource private constructor() {
         return tvs
     }
 
-    fun getMovieDetailDataFromAPI(id: Int): LiveData<MovieDetailResponse> {
+    fun getMovieDetailDataFromAPI(id: Int): LiveData<ApiResponse<MovieDetailResponse>> {
         EspressoIdlingResource.increment()
-        val movieDetail = MutableLiveData<MovieDetailResponse>()
+        val movieDetail = MutableLiveData<ApiResponse<MovieDetailResponse>>()
         val client = ApiConfig.getApiService().getMovieDetail(id)
         client.enqueue(object : Callback<MovieDetailResponse> {
             override fun onResponse(
@@ -89,7 +89,7 @@ class RemoteDataSource private constructor() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        movieDetail.value = response.body()
+                        movieDetail.value = ApiResponse.success(response.body()!!)
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
@@ -107,9 +107,9 @@ class RemoteDataSource private constructor() {
         return movieDetail
     }
 
-    fun getTvDetailDataFromAPI(id: Int): LiveData<TvDetailResponse> {
+    fun getTvDetailDataFromAPI(id: Int): LiveData<ApiResponse<TvDetailResponse>> {
         EspressoIdlingResource.increment()
-        val tvDetail = MutableLiveData<TvDetailResponse>()
+        val tvDetail = MutableLiveData<ApiResponse<TvDetailResponse>>()
         val client = ApiConfig.getApiService().getTvDetail(id)
         client.enqueue(object : Callback<TvDetailResponse> {
             override fun onResponse(
@@ -119,7 +119,7 @@ class RemoteDataSource private constructor() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        tvDetail.value = response.body()
+                        tvDetail.value = ApiResponse.success(response.body()!!)
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")

@@ -49,8 +49,8 @@ class MovieCatalogueRepositoryTest{
         val movieDetail = MutableLiveData<MovieDetailResponse>()
         movieDetail.value = dummyMovieDetail
 
-        `when`(movieCatalogueRepository.getMovieDetailDataFromAPI(movieId)).thenReturn(movieDetail)
-        val movieDetailResult = LiveDataTestUtil.getValue(movieCatalogueRepository.getMovieDetailDataFromAPI(movieId))
+        `when`(movieCatalogueRepository.getMovieDetail(movieId)).thenReturn(movieDetail)
+        val movieDetailResult = LiveDataTestUtil.getValue(movieCatalogueRepository.getMovieDetail(movieId))
 
         verify(remote).getMovieDetailDataFromAPI(movieId)
         assertNotNull(movieDetailResult)

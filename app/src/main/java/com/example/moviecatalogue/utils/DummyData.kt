@@ -32,7 +32,7 @@ object DummyData {
     fun generateDummyTvShows(): TvResponse {
         val genreIds = arrayListOf(1, 2, 3)
         val originCountry = arrayListOf("US")
-        val tvResult = TvResultsItem(
+        val tvResult = TvEntity(
             "firstAirDate",
             "overview",
             "originalLanguage",

@@ -15,5 +15,6 @@
     <string name="release_date">Release Date :</string>
     <string name="genre">Genre :</string>
     <string name="runtime_template">Runtime :</string>
-    <string name="runtime">%d minutes</string>
+    <string name="runtime">%s minutes</string>
+    <string name="favorite_button">Favorite Button</string>
 </resources>

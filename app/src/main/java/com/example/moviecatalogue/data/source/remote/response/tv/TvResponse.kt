@@ -11,19 +11,19 @@ data class TvResponse(
 	val totalPages: Int? = null,
 
 	@field:SerializedName("results")
-	val results: List<TvResultsItem?>? = null,
+	val results: List<TvEntity?>? = null,
 
 	@field:SerializedName("total_results")
 	val totalResults: Int? = null
 )
 
-data class TvResultsItem(
+data class TvEntity(
 
 	@field:SerializedName("first_air_date")
 	val firstAirDate: String? = null,
 
 	@field:SerializedName("overview")
-	val overview: String? = null,
+	val overview: String,
 
 	@field:SerializedName("original_language")
 	val originalLanguage: String? = null,
@@ -32,7 +32,7 @@ data class TvResultsItem(
 	val genreIds: List<Int?>? = null,
 
 	@field:SerializedName("poster_path")
-	val posterPath: String? = null,
+	val posterPath: String,
 
 	@field:SerializedName("origin_country")
 	val originCountry: List<String?>? = null,
@@ -41,7 +41,7 @@ data class TvResultsItem(
 	val backdropPath: String? = null,
 
 	@field:SerializedName("original_name")
-	val originalName: String? = null,
+	val originalName: String,
 
 	@field:SerializedName("popularity")
 	val popularity: Double? = null,

@@ -2,17 +2,20 @@ package com.example.moviecatalogue.ui.detail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.source.remote.response.movie.GenresItem
-import com.example.moviecatalogue.data.source.remote.response.movie.MovieDetailResponse
-import com.example.moviecatalogue.data.source.remote.response.tv.TvDetailResponse
-import com.example.moviecatalogue.data.source.remote.response.tv.TvGenresItem
+import com.example.moviecatalogue.data.source.local.entity.MovieEntity
+import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.ActivityDetailBinding
 import com.example.moviecatalogue.utils.Constant
+import com.example.moviecatalogue.utils.movieGenreToString
+import com.example.moviecatalogue.utils.tvGenreToString
+import com.example.moviecatalogue.utils.tvRuntimeToString
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
+import com.example.moviecatalogue.vo.Status
 
 class DetailActivity : AppCompatActivity() {
 
@@ -24,7 +27,7 @@ class DetailActivity : AppCompatActivity() {
         activityDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(activityDetailBinding.root)
 
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(this)
         val detailViewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         val type = intent.getStringExtra(EXTRA_TYPE)
@@ -33,93 +36,67 @@ class DetailActivity : AppCompatActivity() {
         activityDetailBinding.progressBar.visibility = View.VISIBLE
         if (type == TYPE_MOVIE) {
             supportActionBar?.title = getString(R.string.menu_movies)
-            detailViewModel.getMovieDetailDataFromAPI(id).observe(this) {
-                activityDetailBinding.progressBar.visibility = View.GONE
-                fillDetailMovie(it)
+            detailViewModel.getMovieDetailData(id).observe(this) {
+                if (it != null) {
+                    when(it.status){
+                        Status.LOADING -> activityDetailBinding.progressBar.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            activityDetailBinding.progressBar.visibility = View.GONE
+                            fillDetailMovie(it.data!!)
+                        }
+                        Status.ERROR -> {
+                            activityDetailBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         } else {
             supportActionBar?.title = getString(R.string.menu_tv_shows)
-            detailViewModel.getTvDetailDataFromAPI(id).observe(this) {
-                activityDetailBinding.progressBar.visibility = View.GONE
-                fillDetailTv(it)
-            }
-        }
-
-    }
-
-    private fun fillDetailMovie(movie: MovieDetailResponse?) {
-        with(activityDetailBinding) {
-            textTitleDetail.text = movie?.originalTitle
-            textDateDetail.text = movie?.releaseDate
-            textOverviewDetail.text = movie?.overview
-            Glide.with(this@DetailActivity)
-                .load(constant.imageUrl + movie?.posterPath)
-                .into(imgPosterDetail)
-            textGenreDetail.text = movieGenreToString(movie?.genres)
-            textRuntimeDetail.text = resources.getString(R.string.runtime, movie?.runtime)
-        }
-    }
-
-    private fun movieGenreToString(genresItem: List<GenresItem?>?): String{
-        var genre = ""
-        var counter = 0
-
-        genresItem?.forEach {
-            genre += it?.name.toString()
-            counter++
-            if (counter != genresItem.size) {
-                genre += ", "
-            }
-        }
-        return genre
-    }
-
-    private fun fillDetailTv(tv: TvDetailResponse?) {
-
-        with(activityDetailBinding) {
-            textTitleDetail.text = tv?.name
-            textDateDetail.text = tv?.firstAirDate
-            textOverviewDetail.text = tv?.overview
-            Glide.with(this@DetailActivity)
-                .load(constant.imageUrl + tv?.posterPath)
-                .into(imgPosterDetail)
-            textGenreDetail.text = tvGenreToString(tv?.genres)
-            textRuntimeDetail.text = tvRuntimeToString(tv?.episodeRunTime)
-        }
-    }
-
-    private fun tvGenreToString(genresItem: List<TvGenresItem?>?): String{
-        var genre = ""
-        var counter = 0
-
-        genresItem?.forEach {
-            genre += it?.name.toString()
-            counter++
-            if (counter != genresItem.size) {
-                genre += ", "
-            }
-        }
-        return genre
-    }
-
-    private fun tvRuntimeToString(episodeRuntime: List<Int?>?): String{
-        var counter = 0
-        var runtime = ""
-
-        if (episodeRuntime?.size == 1) {
-            runtime = resources.getString(R.string.runtime, episodeRuntime[0])
-        } else {
-            counter = 0
-            episodeRuntime?.forEach {
-                counter++
-                runtime += resources.getString(R.string.runtime, it)
-                if (counter != episodeRuntime.size) {
-                    runtime += ", "
+            detailViewModel.getTvDetailData(id).observe(this) {
+                if (it != null) {
+                    when(it.status){
+                        Status.LOADING -> activityDetailBinding.progressBar.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            activityDetailBinding.progressBar.visibility = View.GONE
+                            fillDetailTv(it.data!!)
+                        }
+                        Status.ERROR -> {
+                            activityDetailBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
 
-        return runtime
+    }
+
+    private fun fillDetailMovie(movie: MovieEntity) {
+        with(activityDetailBinding) {
+            textTitleDetail.text = movie.originalTitle
+            textDateDetail.text = movie.releaseDate
+            textOverviewDetail.text = movie.overview
+            Glide.with(this@DetailActivity)
+                .load(constant.imageUrl + movie.posterPath)
+                .into(imgPosterDetail)
+            textGenreDetail.text = movie.genres
+            textRuntimeDetail.text = resources.getString(R.string.runtime, movie.runtime)
+        }
+    }
+
+    private fun fillDetailTv(tv: TvEntity) {
+
+        with(activityDetailBinding) {
+            textTitleDetail.text = tv.name
+            textDateDetail.text = tv.firstAirDate
+            textOverviewDetail.text = tv.overview
+            Glide.with(this@DetailActivity)
+                .load(constant.imageUrl + tv.posterPath)
+                .into(imgPosterDetail)
+            textGenreDetail.text = tv.genres
+            textRuntimeDetail.text = resources.getString(R.string.runtime, tv.episodeRunTime)
+        }
     }
 
     companion object {

@@ -1,6 +1,7 @@
 package com.example.moviecatalogue.data.source.remote
 
 import androidx.lifecycle.LiveData
+import com.example.moviecatalogue.data.source.MovieCatalogueDataSource
 import com.example.moviecatalogue.data.source.remote.response.movie.MovieDetailResponse
 import com.example.moviecatalogue.data.source.remote.response.movie.MovieResponse
 import com.example.moviecatalogue.data.source.remote.response.tv.TvDetailResponse
@@ -13,7 +14,7 @@ class FakeMovieCatalogueRepository (private val remoteDataSource: RemoteDataSour
         return remoteDataSource.getAllMovies()
     }
 
-    override fun getMovieDetailDataFromAPI(id: Int): LiveData<MovieDetailResponse> {
+    override fun getMovieDetail(id: Int): LiveData<MovieDetailResponse> {
         return remoteDataSource.getMovieDetailDataFromAPI(id)
     }
 
