@@ -1,17 +1,20 @@
 package com.example.moviecatalogue.ui.tv
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.FragmentTvBinding
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
 import com.example.moviecatalogue.vo.Status
+import kotlinx.android.synthetic.main.activity_favorite.*
 
 class TvFragment : Fragment() {
 
@@ -35,7 +38,7 @@ class TvFragment : Fragment() {
 
             tvViewModel.getAllTvs().observe(viewLifecycleOwner) {
                 if (it != null) {
-                    when(it.status){
+                    when (it.status) {
                         Status.LOADING -> fragmentTvBinding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             fragmentTvBinding.progressBar.visibility = View.GONE
@@ -43,7 +46,8 @@ class TvFragment : Fragment() {
                         }
                         Status.ERROR -> {
                             fragmentTvBinding.progressBar.visibility = View.GONE
-                            Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
@@ -51,17 +55,16 @@ class TvFragment : Fragment() {
         }
     }
 
-    private fun showAllTvs(tvResults: List<TvEntity>) {
-        val tvResultsFiltered: MutableList<TvEntity> = mutableListOf()
-
-        tvResults.forEach {
-            if(it.posterPath.isNotEmpty() && it.overview.isNotEmpty()){
-                tvResultsFiltered.add(it)
-            }
-        }
-
+    private fun showAllTvs(tvResults: PagedList<TvEntity>) {
+//        var tvResultsFiltered: PagedList<TvEntity> =
+//
+//        tvResults.forEach {
+//            if(it.posterPath.isNotEmpty() && it.overview.isNotEmpty()){
+//                tvResultsFiltered.add(it)
+//            }
+//        }
         val tvAdapter = TvAdapter()
-        tvAdapter.setTvs(tvResultsFiltered)
+        tvAdapter.submitList(tvResults)
         with(fragmentTvBinding.rvTvShows) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)

@@ -10,7 +10,7 @@ import com.example.moviecatalogue.R
 import com.example.moviecatalogue.data.source.local.entity.MovieEntity
 import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.ActivityDetailBinding
-import com.example.moviecatalogue.utils.Constant
+import com.example.moviecatalogue.utils.imageUrl
 import com.example.moviecatalogue.utils.showSnackBar
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
 import com.example.moviecatalogue.vo.Status
@@ -21,7 +21,6 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var activityDetailBinding: ActivityDetailBinding
     private lateinit var movie: MovieEntity
     private lateinit var tv: TvEntity
-    private val constant = Constant()
     private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,7 +103,7 @@ class DetailActivity : AppCompatActivity() {
             textDateDetail.text = movie.releaseDate
             textOverviewDetail.text = movie.overview
             Glide.with(this@DetailActivity)
-                .load(constant.imageUrl + movie.posterPath)
+                .load(imageUrl + movie.posterPath)
                 .into(imgPosterDetail)
             textGenreDetail.text = movie.genres
             textRuntimeDetail.text = resources.getString(R.string.runtime, movie.runtime)
@@ -119,7 +118,7 @@ class DetailActivity : AppCompatActivity() {
             textDateDetail.text = tv.firstAirDate
             textOverviewDetail.text = tv.overview
             Glide.with(this@DetailActivity)
-                .load(constant.imageUrl + tv.posterPath)
+                .load(imageUrl + tv.posterPath)
                 .into(imgPosterDetail)
             textGenreDetail.text = tv.genres
             textRuntimeDetail.text = resources.getString(R.string.runtime, tv.episodeRunTime)

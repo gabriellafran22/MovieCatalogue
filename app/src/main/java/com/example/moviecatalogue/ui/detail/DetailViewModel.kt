@@ -14,7 +14,7 @@ class DetailViewModel(private val movieCatalogueRepository: MovieCatalogueReposi
         movieCatalogueRepository.getMovieDetail(id)
 
     fun getTvDetailData(id: Int): LiveData<Resource<TvEntity>> =
-        movieCatalogueRepository.getTvDetailDataFromAPI(id)
+        movieCatalogueRepository.getTvDetail(id)
 
     fun setFavoriteMovie(movie: MovieEntity, isFav: Boolean) {
         movieCatalogueRepository.setFavoriteMovie(movie, isFav)

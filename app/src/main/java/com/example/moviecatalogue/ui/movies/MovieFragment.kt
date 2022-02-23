@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.data.source.local.entity.MovieEntity
 import com.example.moviecatalogue.databinding.FragmentMovieBinding
@@ -52,9 +53,9 @@ class MovieFragment : Fragment() {
         }
     }
 
-    private fun showAllMovies(movieResults: List<MovieEntity>) {
+    private fun showAllMovies(movieResults: PagedList<MovieEntity>) {
         val movieAdapter = MovieAdapter()
-        movieAdapter.setMovies(movieResults)
+        movieAdapter.submitList(movieResults)
         with(fragmentMovieBinding.rvMovie) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)

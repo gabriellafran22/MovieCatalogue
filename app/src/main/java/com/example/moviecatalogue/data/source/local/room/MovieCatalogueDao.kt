@@ -1,6 +1,7 @@
 package com.example.moviecatalogue.data.source.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.example.moviecatalogue.data.source.local.entity.MovieEntity
 import com.example.moviecatalogue.data.source.local.entity.TvEntity
@@ -10,7 +11,7 @@ interface MovieCatalogueDao {
 
     // movies
     @Query("SELECT * FROM movie_entities")
-    fun getAllMovies(): LiveData<List<MovieEntity>>
+    fun getAllMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movie_entities WHERE id = :id")
     fun getMovieDetail(id: Int): LiveData<MovieEntity>
@@ -22,11 +23,11 @@ interface MovieCatalogueDao {
     fun insertMovies(movieEntity: List<MovieEntity>)
 
     @Query("SELECT * FROM movie_entities WHERE isFavorite = 1")
-    fun getFavoriteMovies(): LiveData<List<MovieEntity>>
+    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity>
 
     // tvs
     @Query("SELECT * FROM tv_entities")
-    fun getAllTvs(): LiveData<List<TvEntity>>
+    fun getAllTvs(): DataSource.Factory<Int, TvEntity>
 
     @Query("SELECT * FROM tv_entities WHERE id = :id")
     fun getTvDetail(id: Int): LiveData<TvEntity>
@@ -38,6 +39,6 @@ interface MovieCatalogueDao {
     fun insertTvs(tvEntity: List<TvEntity>)
 
     @Query("SELECT * FROM tv_entities WHERE isFavorite = 1")
-    fun getFavoriteTvs(): LiveData<List<TvEntity>>
+    fun getFavoriteTvs(): DataSource.Factory<Int, TvEntity>
 
 }

@@ -2,6 +2,8 @@ package com.example.moviecatalogue.data.source
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.moviecatalogue.data.NetworkBoundResource
 import com.example.moviecatalogue.data.source.local.LocalDataSource
 import com.example.moviecatalogue.data.source.local.entity.MovieEntity
@@ -25,13 +27,17 @@ class MovieCatalogueRepository private constructor(
 ) :
     MovieCatalogueDataSource {
 
-    override fun getAllMovies(): LiveData<Resource<List<MovieEntity>>> {
-        return object : NetworkBoundResource<List<MovieEntity>, MovieResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<MovieEntity>> {
-                return localDataSource.getAllMovies()
+    override fun getAllMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
+        return object : NetworkBoundResource<PagedList<MovieEntity>, MovieResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
+                val config = PagedList.Config.Builder().setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4).setPageSize(4).build()
+                return LivePagedListBuilder(localDataSource.getAllMovies(), config).build()
             }
 
-            override fun shouldFetch(data: List<MovieEntity>?): Boolean {
+            override fun shouldFetch(data: PagedList<MovieEntity>?): Boolean {
+                val res = data == null || data.isEmpty()
+                Log.i("movieResp", data.toString())
                 return data == null || data.isEmpty()
             }
 
@@ -93,14 +99,16 @@ class MovieCatalogueRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getAllTvs(): LiveData<Resource<List<TvEntity>>> {
-        return object : NetworkBoundResource<List<TvEntity>, TvResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<TvEntity>> {
-                return localDataSource.getAllTvs()
+    override fun getAllTvs(): LiveData<Resource<PagedList<TvEntity>>> {
+        return object : NetworkBoundResource<PagedList<TvEntity>, TvResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<TvEntity>> {
+                val config = PagedList.Config.Builder().setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4).setPageSize(4).build()
+                return LivePagedListBuilder(localDataSource.getAllTvs(), config).build()
             }
 
-            override fun shouldFetch(data: List<TvEntity>?): Boolean {
-                return data == null
+            override fun shouldFetch(data: PagedList<TvEntity>?): Boolean {
+                return data == null || data.isEmpty()
             }
 
             override fun createCall(): LiveData<ApiResponse<TvResponse>> {
@@ -128,7 +136,7 @@ class MovieCatalogueRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getTvDetailDataFromAPI(id: Int): LiveData<Resource<TvEntity>> {
+    override fun getTvDetail(id: Int): LiveData<Resource<TvEntity>> {
         return object : NetworkBoundResource<TvEntity, TvDetailResponse>(appExecutors) {
             override fun loadFromDB(): LiveData<TvEntity> {
                 return localDataSource.getTvDetail(id)
@@ -174,12 +182,16 @@ class MovieCatalogueRepository private constructor(
         }
     }
 
-    override fun getFavoriteMovies(): LiveData<List<MovieEntity>> {
-        return localDataSource.getFavoriteMovies()
+    override fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>> {
+        val config = PagedList.Config.Builder().setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4).setPageSize(4).build()
+        return LivePagedListBuilder(localDataSource.getFavoriteMovies(), config).build()
     }
 
-    override fun getFavoriteTvs(): LiveData<List<TvEntity>> {
-        return localDataSource.getFavoriteTvs()
+    override fun getFavoriteTvs(): LiveData<PagedList<TvEntity>> {
+        val config = PagedList.Config.Builder().setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4).setPageSize(4).build()
+        return LivePagedListBuilder(localDataSource.getFavoriteTvs(), config).build()
     }
 
     companion object {

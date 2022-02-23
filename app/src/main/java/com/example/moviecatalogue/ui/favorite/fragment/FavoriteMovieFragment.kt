@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.data.source.local.entity.MovieEntity
@@ -50,9 +51,9 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
-    private fun showAllFavoriteMovies(movieResults: List<MovieEntity>) {
+    private fun showAllFavoriteMovies(movieResults: PagedList<MovieEntity>) {
         val movieAdapter = MovieAdapter()
-        movieAdapter.setMovies(movieResults)
+        movieAdapter.submitList(movieResults)
         with(fragmentFavoriteMovieBinding.rvMovieFavorite) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
