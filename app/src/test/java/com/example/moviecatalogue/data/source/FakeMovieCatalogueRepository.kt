@@ -20,7 +20,7 @@ import com.example.moviecatalogue.utils.tvGenreToString
 import com.example.moviecatalogue.utils.tvRuntimeToString
 import com.example.moviecatalogue.vo.Resource
 
-class MovieCatalogueRepository private constructor(
+class FakeMovieCatalogueRepository constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
@@ -169,15 +169,12 @@ class MovieCatalogueRepository private constructor(
     }
 
     override fun setFavoriteMovie(movieEntity: MovieEntity, isFav: Boolean) {
-        return appExecutors.diskIO().execute {
-            localDataSource.updateMovie(movieEntity, isFav)
-        }
+        return localDataSource.updateMovie(movieEntity, isFav)
     }
 
     override fun setFavoriteTv(tvEntity: TvEntity, isFav: Boolean) {
-        return appExecutors.diskIO().execute {
-            localDataSource.updateTv(tvEntity, isFav)
-        }
+        return localDataSource.updateTv(tvEntity, isFav)
+
     }
 
     override fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>> {
@@ -190,18 +187,5 @@ class MovieCatalogueRepository private constructor(
         val config = PagedList.Config.Builder().setEnablePlaceholders(false)
             .setInitialLoadSizeHint(25).setPageSize(25).build()
         return LivePagedListBuilder(localDataSource.getFavoriteTvs(), config).build()
-    }
-
-    companion object {
-        @Volatile
-        private var instance: MovieCatalogueRepository? = null
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            executors: AppExecutors
-        ): MovieCatalogueRepository =
-            instance ?: synchronized(this) {
-                instance ?: MovieCatalogueRepository(remoteData, localData, executors)
-            }
     }
 }

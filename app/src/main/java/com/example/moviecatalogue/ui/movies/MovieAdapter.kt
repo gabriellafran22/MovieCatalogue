@@ -12,17 +12,8 @@ import com.example.moviecatalogue.data.source.local.entity.MovieEntity
 import com.example.moviecatalogue.databinding.ItemsMovieAndTvBinding
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import com.example.moviecatalogue.utils.imageUrl
-import java.util.ArrayList
 
 class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
-
-//    private var listMovies = ArrayList<MovieEntity?>()
-//
-//    fun setMovies(movies: List<MovieEntity?>?) {
-//        if (movies == null) return
-//        this.listMovies.clear()
-//        this.listMovies.addAll(movies)
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemsMoviesBinding =
@@ -31,14 +22,11 @@ class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-//        val movie = listMovies[position]
         val movie = getItem(position)
         if (movie != null) {
             holder.bind(movie)
         }
     }
-
-//    override fun getItemCount(): Int = listMovies.size
 
     class MovieViewHolder(private val binding: ItemsMovieAndTvBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -11,16 +11,8 @@ import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.ItemsMovieAndTvBinding
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import com.example.moviecatalogue.utils.imageUrl
-import java.util.ArrayList
 
 class TvAdapter : PagedListAdapter<TvEntity, TvAdapter.TvViewHolder>(DIFF_CALLBACK) {
-
-//    private var listTvs = ArrayList<TvEntity>()
-//
-//    fun setTvs(tvs: List<TvEntity>) {
-//        this.listTvs.clear()
-//        this.listTvs.addAll(tvs)
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvViewHolder {
         val itemsTvsBinding =
@@ -29,17 +21,15 @@ class TvAdapter : PagedListAdapter<TvEntity, TvAdapter.TvViewHolder>(DIFF_CALLBA
     }
 
     override fun onBindViewHolder(holder: TvViewHolder, position: Int) {
-//        val tv = listTvs[position]
         val tv = getItem(position)
         if (tv != null) {
             holder.bind(tv)
         }
     }
 
-//    override fun getItemCount(): Int = listTvs.size
-
     class TvViewHolder(private val binding: ItemsMovieAndTvBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(tv: TvEntity?) {
             with(binding) {
                 Glide.with(itemView.context)

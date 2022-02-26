@@ -64,7 +64,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'androidx.room:room-compiler:2.4.1'
     // paging
-    implementation "androidx.paging:paging-runtime:3.1.0"
+    implementation "androidx.paging:paging-runtime:2.1.1"
 
     // Testing
         // Mockito
@@ -72,11 +72,8 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:3.6.0"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
-//    testImplementation group: 'org.mockito', name: 'mockito-core', version: "3.6.0"
-        //others
+    //others
     testImplementation 'junit:junit:4.13.2'
-//    androidTestImplementation 'org.mockito:mockito-android:2.+'
-//    implementation "org.mockito:mockito-core:2.+"
     androidTestImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test:runner:1.4.0"
     androidTestImplementation "androidx.test:rules:1.4.0"

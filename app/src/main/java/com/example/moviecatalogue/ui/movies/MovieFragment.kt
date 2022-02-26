@@ -35,8 +35,8 @@ class MovieFragment : Fragment() {
             val movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
             movieViewModel.getAllMovies().observe(viewLifecycleOwner) {
-                if (it != null){
-                    when(it.status){
+                if (it != null) {
+                    when (it.status) {
                         Status.LOADING -> fragmentMovieBinding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             fragmentMovieBinding.progressBar.visibility = View.GONE
@@ -44,7 +44,8 @@ class MovieFragment : Fragment() {
                         }
                         Status.ERROR -> {
                             fragmentMovieBinding.progressBar.visibility = View.GONE
-                            Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }

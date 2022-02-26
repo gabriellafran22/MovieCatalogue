@@ -12,7 +12,6 @@ import com.example.moviecatalogue.vo.Resource
 class TvViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) : ViewModel() {
 
     fun getAllTvs(): LiveData<Resource<PagedList<TvEntity>>> {
-        Log.i("tvFragment1", movieCatalogueRepository.getAllTvs().toString())
         return movieCatalogueRepository.getAllTvs()
     }
 

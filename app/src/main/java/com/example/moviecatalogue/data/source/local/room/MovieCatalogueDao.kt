@@ -19,7 +19,7 @@ interface MovieCatalogueDao {
     @Update
     fun updateMovie(movieEntity: MovieEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMovies(movieEntity: List<MovieEntity>)
 
     @Query("SELECT * FROM movie_entities WHERE isFavorite = 1")
@@ -35,7 +35,7 @@ interface MovieCatalogueDao {
     @Update
     fun updateTv(tvEntity: TvEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTvs(tvEntity: List<TvEntity>)
 
     @Query("SELECT * FROM tv_entities WHERE isFavorite = 1")
