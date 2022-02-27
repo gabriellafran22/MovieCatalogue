@@ -14,7 +14,6 @@ import com.example.moviecatalogue.utils.imageUrl
 import com.example.moviecatalogue.utils.showSnackBar
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
 import com.example.moviecatalogue.vo.Status
-import com.google.android.material.snackbar.Snackbar
 
 class DetailActivity : AppCompatActivity() {
 

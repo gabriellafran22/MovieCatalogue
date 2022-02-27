@@ -18,7 +18,6 @@
     <string name="runtime_template">Runtime :</string>
     <string name="runtime">%s minutes</string>
     <string name="favorite_button">Favorite Button</string>
-    <string name="title_activity_favorite">FavoriteActivity</string>
 
     <string name="no_favorite">No Favorite %s Added</string>
     <string name="remove_favorite">Successfully removed from favorites</string>

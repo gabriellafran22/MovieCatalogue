@@ -51,7 +51,6 @@ class RemoteDataSource private constructor() {
         return movies
     }
 
-//TODO: ini yg bawah" belum di ganti semua pake API response
     fun getAllTvs(): LiveData<ApiResponse<TvResponse>> {
         EspressoIdlingResource.increment()
         val tvs = MutableLiveData<ApiResponse<TvResponse>>()

@@ -89,8 +89,6 @@ class FakeMovieCatalogueRepository constructor(
                     data.runtime.toString(),
                     false,
                 )
-                Log.i("movieRepo", movie.toString())
-
                 localDataSource.updateMovie(movie, false)
             }
 

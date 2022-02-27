@@ -4,7 +4,6 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.moviecatalogue.data.source.remote.response.movie.GenresItem
 
 @Entity(tableName = "movie_entities")
 class MovieEntity(

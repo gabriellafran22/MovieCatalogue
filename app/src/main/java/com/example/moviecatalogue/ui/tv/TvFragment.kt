@@ -1,7 +1,6 @@
 package com.example.moviecatalogue.ui.tv
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.example.moviecatalogue.data.source.local.entity.TvEntity
 import com.example.moviecatalogue.databinding.FragmentTvBinding
 import com.example.moviecatalogue.viewmodel.ViewModelFactory
 import com.example.moviecatalogue.vo.Status
-import kotlinx.android.synthetic.main.activity_favorite.*
 
 class TvFragment : Fragment() {
 

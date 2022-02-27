@@ -64,7 +64,6 @@ data class TvDetailResponse(
 	@field:SerializedName("adult")
 	val adult: Boolean? = null,
 
-
 	@field:SerializedName("in_production")
 	val inProduction: Boolean? = null,
 
